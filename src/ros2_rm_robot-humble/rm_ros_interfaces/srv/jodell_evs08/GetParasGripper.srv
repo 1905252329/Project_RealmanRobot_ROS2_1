@@ -1,0 +1,7 @@
+#Request
+---
+#Response
+bool success
+string message
+int32 channel1_vacuum # 通道1真空度
+int32 channel2_vacuum # 通道2真空度

@@ -1,0 +1,171 @@
+# =============================================================================
+# 项目名称: rm_motion_planner
+# 开发日期: 2025-08-01 至今
+# 版本信息: V1.0.0,交付版本
+# 功能说明: 
+#   - 提供核心功能模块1
+#   - 实现关键功能2
+#   - 支持扩展功能3
+# 开发者: likang
+# 联系方式: email@example.com
+# =============================================================================
+
+
+cmake_minimum_required(VERSION 3.5)
+project(rm_motion_planner)
+
+# Default to C99
+if(NOT CMAKE_C_STANDARD)
+  set(CMAKE_C_STANDARD 99)
+endif()
+
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# find dependencies
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(rclcpp_action REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(trajectory_msgs REQUIRED)
+find_package(control_msgs REQUIRED)
+find_package(rm_ros_interfaces REQUIRED)
+find_package(kinlib REQUIRED)
+find_package(sclerp_motion_planner REQUIRED)
+find_package(urdf REQUIRED)
+find_package(Eigen3 REQUIRED)
+find_package(Boost REQUIRED COMPONENTS system filesystem)
+find_package(rm_driver REQUIRED)
+
+# Ensure Eigen3 include directory is set
+if(NOT EIGEN3_INCLUDE_DIRS)
+  set(EIGEN3_INCLUDE_DIRS ${EIGEN3_INCLUDE_DIR})
+endif()
+
+
+
+# 添加单臂规划器节点
+add_executable(rm_sclerp_planner_node_1 
+                src/rm_sclerp_planner_node_1.cpp
+                src/robot_interface.cpp
+                src/jodell_evs08_interfaces.cpp)
+target_include_directories(rm_sclerp_planner_node_1 PUBLIC
+  ${EIGEN3_INCLUDE_DIRS}
+  ${rm_driver_INCLUDE_DIRS}
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+target_link_libraries(rm_sclerp_planner_node_1 
+                      kinlib::kinlib 
+                      ${rm_driver_LIBRARIES})
+ament_target_dependencies(rm_sclerp_planner_node_1 
+  rclcpp 
+  std_msgs
+  sensor_msgs
+  geometry_msgs
+  builtin_interfaces
+  trajectory_msgs
+  control_msgs
+  rm_ros_interfaces
+  sclerp_motion_planner
+  urdf
+  Boost
+)
+
+
+
+# ✨ 添加双臂规划器节点
+add_executable(rm_dual_arm_sclerp_planner_node_1 
+               src/rm_dual_arm_sclerp_planner_node_1.cpp
+               src/robot_interface.cpp
+               src/jodell_evs08_interfaces.cpp)               
+target_include_directories(rm_dual_arm_sclerp_planner_node_1 PUBLIC
+  ${EIGEN3_INCLUDE_DIRS}
+  ${rm_driver_INCLUDE_DIRS}
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+target_link_libraries(rm_dual_arm_sclerp_planner_node_1 
+                      kinlib::kinlib
+                      ${rm_driver_LIBRARIES})
+ament_target_dependencies(rm_dual_arm_sclerp_planner_node_1 
+  rclcpp 
+  rclcpp_action
+  std_msgs
+  sensor_msgs
+  geometry_msgs
+  builtin_interfaces
+  trajectory_msgs
+  control_msgs
+  rm_ros_interfaces
+  sclerp_motion_planner
+  urdf
+  Boost
+)
+
+
+
+# ✨ 添加 jodell 电吸盘客户端节点
+add_executable(jodell_evs08_client
+               src/jodell_evs08_client.cpp)
+target_include_directories(jodell_evs08_client PUBLIC
+  ${EIGEN3_INCLUDE_DIRS}
+  ${rm_driver_INCLUDE_DIRS}
+)
+target_link_libraries(jodell_evs08_client
+  ${Boost_SYSTEM_LIBRARY}
+  ${Boost_FILESYSTEM_LIBRARY}
+  ${rm_driver_LIBRARIES}
+)
+ament_target_dependencies(jodell_evs08_client
+  rclcpp
+  std_msgs
+  rm_ros_interfaces
+  Boost
+)
+
+
+
+install(TARGETS 
+  rm_sclerp_planner_test
+  rm_sclerp_planner_node
+  rm_sclerp_planner_node_1
+  rm_dual_arm_sclerp_planner_node
+  test_fk
+  jodell_evs08_client
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+
+install(DIRECTORY
+  launch/
+  DESTINATION share/${PROJECT_NAME}/launch
+  PATTERN "*.py" PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+)
+
+# 添加配置文件安装指令
+install(DIRECTORY
+  config/
+  DESTINATION share/${PROJECT_NAME}/config
+)
+
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  # the following line skips the linter which checks for copyrights
+  # uncomment the line when a copyright and license is not present in all source files
+  #set(ament_cmake_copyright_FOUND TRUE)
+  # the following line skips cpplint (only works in a git repo)
+  # uncomment the line when this package is not in a git repo
+  #set(ament_cmake_cpplint_FOUND TRUE)
+  ament_lint_auto_find_test_dependencies()
+endif()
+
+ament_package()

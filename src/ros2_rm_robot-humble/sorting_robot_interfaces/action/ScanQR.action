@@ -1,0 +1,9 @@
+# 目标定义
+string target
+---
+# 结果定义
+bool success
+string message
+---
+# 反馈定义
+int32 status

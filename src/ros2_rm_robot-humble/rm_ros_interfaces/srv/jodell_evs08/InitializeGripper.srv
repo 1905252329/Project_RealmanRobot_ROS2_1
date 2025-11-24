@@ -1,0 +1,8 @@
+string ip
+int32 port
+int32 register_address
+int32 comm_port
+int32 device_address
+---
+bool success
+string message

@@ -1,0 +1,17 @@
+rm_driver:
+  ros__parameters:
+    # 右臂机器人参数
+    arm_ip: "192.168.1.19"        # 右臂IP地址
+    tcp_port: 8080                # TCP连接端口
+    arm_type: "RM_75"             # 机械臂型号设置 
+    arm_dof: 7                    # 机械臂自由度设置
+    udp_ip: "192.168.1.10"       # UDP主动上报IP
+    udp_cycle: 5                  # UDP主动上报周期
+    udp_port: 8090                # UDP主动上报端口（与左臂不同）
+    udp_force_coordinate: 0       # 六维力基准坐标
+    udp_hand: false               # 灵巧手UDP主动上报使能
+    udp_plus_base: false          # 末端设备基础信息UDP主动上报使能
+    udp_plus_state: false         # 末端设备实时信息UDP主动上报使能
+    trajectory_mode: 0            # 轨迹模式
+    radio: 0                      # 平滑系数
+    arm_joints: ["joint1", "joint2", "joint3", "joint4", "joint5", "joint6", "joint7"]

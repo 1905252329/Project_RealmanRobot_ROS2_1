@@ -1,0 +1,7 @@
+---
+bool success
+string message
+float64[7] d
+float64[7] a
+float64[7] alpha
+float64[7] offset

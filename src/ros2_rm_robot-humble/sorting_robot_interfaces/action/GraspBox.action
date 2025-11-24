@@ -1,0 +1,10 @@
+# 目标定义
+geometry_msgs/Pose pose
+# string targetArm
+---
+# 结果定义
+bool success
+string message
+---
+# 反馈定义
+int32 status

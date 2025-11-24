@@ -1,0 +1,19 @@
+rm_sclerp_planner_node_leftArm:
+  ros__parameters:
+    # 起始关节角度 (弧度)
+    # start_joint_positions:  "-1.413, -1.608, -0.528, -1.828, -1.491, 2.132, -0.265" # 遮挡相机
+    # start_joint_positions:  "-1.988, -0.923, -0.593, -0.511, -0.960, 2.207, 1.842" # 规划易失败
+    start_joint_positions:  [-1.734, -0.859, -0.484, -1.210, -1.458, 2.116, 1.104]
+    
+    # 目标关节角度 (弧度)
+    # 示例1: 简单移动
+    target_joint_positions: [-0.973, -1.125, -0.899, -0.978, -2.299, 1.304, 1.449]
+    
+    # URDF文件路径（必须提供有效的URDF文件路径）
+    urdf_path: "/home/byd/hrt2/ros2_rm_ws/src/ros2_rm_robot-humble/rm_description/urdf/rm_75_6fb.urdf"
+    
+    # 轨迹执行频率 (Hz) - 控制定时器发布轨迹点的频率
+    trajectory_execution_rate: 25
+    
+    # 轨迹插值频率 (Hz) - 控制轨迹点插值的密度
+    trajectory_interpolation_rate: 100

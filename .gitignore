@@ -1,0 +1,15 @@
+# Build directories
+build/
+install/
+log/
+
+# VS Code files
+.vscode/browse.vc.db
+.vscode/browse.vc.db-shm
+.vscode/browse.vc.db-wal
+.vscode/
+
+
+# Temporary files
+*.tmp
+*~
