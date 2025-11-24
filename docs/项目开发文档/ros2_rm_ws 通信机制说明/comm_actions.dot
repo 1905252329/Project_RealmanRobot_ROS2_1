@@ -1,0 +1,8 @@
+digraph comm_actions {
+  rankdir=LR;
+  node [shape=box, style=filled, fillcolor="#EFEFEF"];
+  "Planner (action client)" -> "/rm_group_controller/follow_joint_trajectory" [label="action:SendGoal"];
+  "/rm_group_controller/follow_joint_trajectory" -> "rm_control (action_server)" [label="accept/execute"];
+  "rm_control (action_server)" -> "rm_driver" [label="topic:publish Jointpos"];
+  "rm_control" -> "Planner" [label="feedback/result"];
+}

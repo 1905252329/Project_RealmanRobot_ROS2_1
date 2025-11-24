@@ -1,0 +1,7 @@
+digraph rm_comm {
+  rankdir=LR;
+  Planner -> "/rm_group_controller/follow_joint_trajectory" [label="action:SendGoal"];
+  "rm_control(action_server)" -> "rm_driver" [label="topic:Jointpos(pub)"];
+  "rm_driver" -> Planner [label="topic:/rm_driver/movej_result(pub)"];
+  Planner -> "rm_driver/movej_cmd" [label="topic:publish"];
+}

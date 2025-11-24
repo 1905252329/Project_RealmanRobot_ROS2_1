@@ -1,0 +1,23 @@
+install/rm_ros_interfaces
+├── include/
+│   └── rm_ros_interfaces/
+│       └── rm_ros_interfaces/
+│           ├── msg/
+│           │   ├── Armstate.h
+│           │   ├── Movej.h
+│           │   ├── Gripperset.h
+│           │   └── detail/ (生成的 struct / type_support)
+│           └── srv/
+│               ├── GetDH.h
+│               ├── ModbusControl.h
+│               └── jodell_evs08/ (ActivateGripper...)
+├── lib/
+│   ├── librm_ros_interfaces__rosidl_generator_c.so
+│   ├── librm_ros_interfaces__rosidl_generator_py.so
+│   └── librm_ros_interfaces__rosidl_typesupport_*.so
+├── local/ (本地安装/配置脚本)
+└── share/
+    └── rm_ros_interfaces/
+        ├── msg/ (*.msg / *.idl 原始接口)
+        ├── srv/ (*.srv / *.idl 原始接口)
+        └── cmake/ / local_setup.* / environment/

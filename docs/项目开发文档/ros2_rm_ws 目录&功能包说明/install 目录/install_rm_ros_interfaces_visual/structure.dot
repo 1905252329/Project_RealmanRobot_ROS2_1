@@ -1,0 +1,28 @@
+digraph rm_ros_interfaces {
+  node [shape=folder];
+  root [label="install/rm_ros_interfaces"];
+
+  include [label="include/"];
+  lib [label="lib/"];
+  local [label="local/"];
+  share [label="share/"];
+
+  root -> include;
+  root -> lib;
+  root -> local;
+  root -> share;
+
+  include -> inc_pkg [label="rm_ros_interfaces/"];
+  inc_pkg -> inc_pkg_inner [label="rm_ros_interfaces/"];
+  inc_pkg_inner -> msg [label="msg/"];
+  inc_pkg_inner -> srv [label="srv/"];
+
+  lib -> libs [label="librm_ros_interfaces_*.so"];
+  share -> share_pkg [label="rm_ros_interfaces/"];
+  share_pkg -> share_msg [label="msg/ (*.msg/.idl)"];
+  share_pkg -> share_srv [label="srv/ (*.srv/.idl)"];
+  share_pkg -> share_misc [label="cmake/, local_setup.*"];
+
+  msg -> msg_files [label="*.h / *.hpp / detail/"];
+  srv -> srv_files [label="*.h / *.hpp / detail/"];
+}

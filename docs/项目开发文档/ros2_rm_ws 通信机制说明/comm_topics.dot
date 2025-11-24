@@ -1,0 +1,11 @@
+digraph comm_topics {
+  rankdir=LR;
+  node [shape=box, style=filled, fillcolor="#EFEFEF"];
+  "Planner / Demo" -> "/rm_driver/movej_cmd" [label="topic:Movej pub"];
+  "Planner / Demo" -> "/left_arm/movej_canfd_cmd" [label="topic:Jointpos pub (left)"];
+  "Planner / Demo" -> "/right_arm/movej_canfd_cmd" [label="topic:Jointpos pub (right)"];
+  "/rm_driver/movej_cmd" -> "rm_driver" [label="subscribe"];
+  "rm_driver" -> "/rm_driver/movej_result" [label="publish:Move result"];
+  "rm_driver" -> "/joint_states" [label="publish:joint_states"];
+  "rm_driver" -> "/rm_driver/udp_six_force" [label="publish:force"];
+}

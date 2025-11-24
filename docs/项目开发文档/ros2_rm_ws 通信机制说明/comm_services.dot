@@ -1,0 +1,10 @@
+digraph comm_services {
+  rankdir=LR;
+  node [shape=box, style=filled, fillcolor="#EFEFEF"];
+  "Planner" -> "/rm_driver/get_dh" [label="service:GetDH client"];
+  "/rm_driver/get_dh" -> "rm_driver" [label="service server"];
+  "Planner" -> "initialize_gripper" [label="service:InitializeGripper client"];
+  "initialize_gripper" -> "gripper_server" [label="service server"];
+  "Planner" -> "activate_gripper" [label="service:ActivateGripper client"];
+  "Planner" -> "close_modbus" [label="service:CloseModbus client"];
+}
